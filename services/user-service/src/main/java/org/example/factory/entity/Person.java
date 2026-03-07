@@ -21,6 +21,9 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "gender-id" , foreignKey = @ForeignKey(name = "FK_person_gender"))
     private Gender genderId;
+    @ManyToOne
+    @JoinColumn(name = "role_id" , foreignKey = @ForeignKey(name = "FK_person_role"))
+    private Role roleId;
     @Column(name = "number" , length = 50 , nullable = false)
     private String number;
     @Embedded
