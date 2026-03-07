@@ -27,8 +27,8 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void deletePerson(Person person) {
-        personRepository.delete(person);
+    public void deletePerson(long id) {
+        personRepository.deleteById(id);
     }
 
     public Person getPerson(Long id) {
