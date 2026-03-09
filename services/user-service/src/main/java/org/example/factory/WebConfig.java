@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfig {
     @Bean
     public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
-        return(factory) -> factory.setContextPath("/ride");
+        return(factory) -> factory.setContextPath("/user");
     }
 }
