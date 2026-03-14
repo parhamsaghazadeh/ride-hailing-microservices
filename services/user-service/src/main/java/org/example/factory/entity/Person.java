@@ -27,8 +27,5 @@ public class Person {
     @Column(name = "number" , length = 50 , nullable = false)
     private String number;
     @Embedded
-    private Address address;
-
-
-
+    private PersonAddress personAddress;
 }
