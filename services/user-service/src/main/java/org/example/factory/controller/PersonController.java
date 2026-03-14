@@ -38,11 +38,11 @@ public class PersonController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<PersonModel>> searchPerson(@RequestParam long id) {
+    public ResponseEntity<PersonModel> searchPerson(@RequestParam long id) {
         try {
             Person person = personService.getPerson(id);
             PersonModel personModel = converter.PersonConvert(person);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.ok(personModel);
         } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
