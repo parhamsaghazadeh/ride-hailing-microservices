@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ride-service
+
+  # تنظیمات مرتبط با سرویس کاربر
+  cloud:
+    loadbalancer:
+      enabled: false
+
+# تنظیمات RestTemplate یا اتصال به سرویس کاربر
+rest:
+  user-service:
+    url: http://localhost:8080
+
+# تنظیمات لگ
+logging:
+  level:
+    com.company.rideservice: DEBUG
+    org.springframework.web: DEBUG

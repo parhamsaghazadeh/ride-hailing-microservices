@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: user-service
+
+# تنظیمات لگ
+logging:
+  level:
+    com.company.userservice: DEBUG
+    org.springframework.web: DEBUG
