@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @SpringBootApplication(scanBasePackages = "org.example.factory")
 @Configuration
-public class SBExampleApplicationUser {
+public class SBExampleApplicationRide {
     public static void main(String[] args) {
-        SpringApplication.run(SBExampleApplicationUser.class, args);
+        SpringApplication.run(SBExampleApplicationRide.class, args);
     }
 }
