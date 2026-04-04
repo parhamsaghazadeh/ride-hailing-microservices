@@ -24,6 +24,8 @@ public class Ride {
     @OneToOne
     @JoinColumn(name = "vehicle_id" , foreignKey = @ForeignKey(name = "FK-ride-vehicle"))
     private Vehicle vehicle;
-    @Column(name = "user_id", nullable = false , length = 20)
-    private long userId;
+    @Column(name = "passenger_id" , nullable = false)
+    private long passengerId;
+    @Column(name = "driver_id" , nullable = false)
+    private long driverId;
 }
