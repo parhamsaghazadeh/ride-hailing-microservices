@@ -6,6 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "vehicle")
 @Data
+//اطلعات ماشین
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
