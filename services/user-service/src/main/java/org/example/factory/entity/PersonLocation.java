@@ -13,12 +13,12 @@ public class PersonLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    @JoinColumn(name = "person_id" , foreignKey = @ForeignKey(name = "FK_person_location"))
+    @JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "FK_person_location"))
     private Person person;
-    @Column(name = "location_name" , length = 50 , nullable = false)
+    @Column(name = "location_name", length = 50, nullable = false)
     private String locationName;
-    @Column(name = "is_default" , nullable = false)
+    @Column(name = "is_default", nullable = false)
     private boolean isDefault = false;
-    @Column(name = "created_at" , nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }

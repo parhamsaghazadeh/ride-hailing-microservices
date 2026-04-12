@@ -79,7 +79,7 @@ public class PersonLocationController {
     @DeleteMapping
     public ResponseEntity<String> delete(@RequestParam Long id) {
         try {
-            PersonLocation personLocation = personLocationService.getById(id);
+            personLocationService.deleteLocation(id);
             return ResponseEntity.ok("delete successfully");
         } catch (Exception e) {
             log.error(e.getMessage());

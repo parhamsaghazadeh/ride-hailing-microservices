@@ -14,18 +14,18 @@ public class PersonWallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
-    @JoinColumn(name = "person_id" , foreignKey = @ForeignKey(name = "FK-person-wallet"))
-    private Person person;
+    @JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "FK-person-wallet"))
+    private Person personId;
     //موجودی کیف پول
-    @Column(name = "balance" ,nullable = false , precision = 10 , scale = 2)
+    @Column(name = "balance", nullable = false, precision = 10, scale = 2)
     private BigDecimal balance;
     //واحد پول
-    @Column(name = "currency" , nullable = false , length = 50)
+    @Column(name = "currency", nullable = false, length = 50)
     private String currency;
     //ایجاد زمان پول
-    @Column(name = "created_at" , nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     //آخرین بروزرسانی کیف پول
-    @Column(name = "update_at" , nullable = false)
+    @Column(name = "update_at", nullable = false)
     private LocalDateTime updateAt;
 }

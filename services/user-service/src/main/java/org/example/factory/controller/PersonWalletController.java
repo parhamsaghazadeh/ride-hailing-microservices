@@ -24,15 +24,14 @@ public class PersonWalletController {
     private Converter converter;
 
     @GetMapping
-    public ResponseEntity<List<PersonWalletModel>> getWallet(){
+    public ResponseEntity<List<PersonWalletModel>> getWallet() {
         try {
             List<PersonWallet> personWallet = personWalletService.getAllWallets();
             List<PersonWalletModel> personWalletModel = personWallet.stream()
                     .map(converter::toPersonWalletModel)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(personWalletModel);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -45,8 +44,7 @@ public class PersonWalletController {
             PersonWallet personWallet = personWalletService.getWalletById(id);
             PersonWalletModel personWalletModel = converter.toPersonWalletModel(personWallet);
             return ResponseEntity.ok(personWalletModel);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -54,12 +52,13 @@ public class PersonWalletController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonWalletModel> createWallet(@RequestBody PersonWallet personWallet ) {
+    public ResponseEntity<PersonWalletModel> createWallet(@RequestBody PersonWallet personWallet) {
         try {
+
             PersonWallet addPersonWallet = personWalletService.saveWallet(personWallet);
             PersonWalletModel personWalletModel = converter.toPersonWalletModel(addPersonWallet);
             return ResponseEntity.ok(personWalletModel);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -72,8 +71,7 @@ public class PersonWalletController {
             PersonWallet updatePersonWallet = personWalletService.updateWallet(personWallet);
             PersonWalletModel personWalletModel = converter.toPersonWalletModel(updatePersonWallet);
             return ResponseEntity.ok(personWalletModel);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -85,8 +83,7 @@ public class PersonWalletController {
         try {
             personWalletService.deleteWallet(id);
             return ResponseEntity.ok("Deleted");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

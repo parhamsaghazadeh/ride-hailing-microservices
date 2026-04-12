@@ -13,11 +13,13 @@ public class Converter {
 
     public DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
+
     public PersonModel PersonConvert(Person person) {
         PersonModel personModel = new PersonModel();
         personModel.setId(person.getId());
         personModel.setName(person.getName());
         personModel.setLastName(person.getLastname());
+        personModel.setGenderId(person.getGenderId().getId());
         personModel.setBirthDate(dateTimeFormatter.format(person.getBirthdate()));
         personModel.setNumber(person.getNumber());
 
@@ -33,13 +35,15 @@ public class Converter {
 
     public PersonWalletModel toPersonWalletModel(PersonWallet personWallet) {
         PersonWalletModel personWalletModel = new PersonWalletModel();
+        personWalletModel.setPersonId(personWallet.getPersonId().getId());
         personWalletModel.setId(personWallet.getId());
         personWalletModel.setBalance(DECIMAL_FORMAT.format(personWallet.getBalance()));
-        personWalletModel.setCurrency(personWallet.getCurrency());
         personWalletModel.setCreated_at(dateTimeFormatter.format(personWallet.getCreatedAt()));
-        personWalletModel.setUpdated_at(dateTimeFormatter.format(personWallet.getCreatedAt()));
+        personWalletModel.setCurrency(personWallet.getCurrency());
+        personWalletModel.setUpdated_at(dateTimeFormatter.format(personWallet.getUpdateAt()));
         return personWalletModel;
     }
+
     public PersonLocationModel toPersonLocationModel(PersonLocation personLocation) {
         PersonLocationModel personLocationModel = new PersonLocationModel();
         personLocationModel.setId(personLocation.getId());

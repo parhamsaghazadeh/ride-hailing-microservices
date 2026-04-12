@@ -16,11 +16,11 @@ public class PersonWalletService {
         this.personWalletRepository = personWalletRepository;
     }
 
-    public PersonWallet getWalletById(Long id){
+    public PersonWallet getWalletById(Long id) {
         return personWalletRepository.findById(id).orElse(null);
     }
 
-    public List<PersonWallet> getAllWallets(){
+    public List<PersonWallet> getAllWallets() {
         return personWalletRepository.findAll();
     }
 

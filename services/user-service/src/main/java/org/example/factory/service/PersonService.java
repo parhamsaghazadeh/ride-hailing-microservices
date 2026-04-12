@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class PersonService {
     private PersonRepository personRepository;
+
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -23,7 +24,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public List<Person> getPersons(){
+    public List<Person> getPersons() {
         return personRepository.findAll();
     }
 
