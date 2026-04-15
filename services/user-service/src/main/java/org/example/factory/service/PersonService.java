@@ -12,14 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Slf4j
 @Service
 public class PersonService {
     private PersonRepository personRepository;
 
+    private Map<String, Long> roleTitleToIdMap;
+
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
+        PersonService();
     }
 
     public Person createPerson(Person person) {
@@ -42,9 +46,9 @@ public class PersonService {
         return personRepository.findById(id).orElse(null);
     }
 
-    private Map<String, Long> roleTitleToIdMap = new HashMap<>();
 
-    public PersonService(){
+    public void PersonService(){
+        roleTitleToIdMap=new HashMap<>();
         roleTitleToIdMap.put("Driver",1L);
         roleTitleToIdMap.put("Traveller",2L);
     }
