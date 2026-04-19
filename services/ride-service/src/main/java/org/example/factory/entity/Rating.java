@@ -17,11 +17,9 @@ public class Rating {
     private Long id;
     @Column(name = "driver_id",nullable = false)
     private Long driverId;
-    @Column(name = "user_id" , nullable = false)
-    private Long userId;
     //امتیاز 1-10
     @Column(name = "score",nullable = false)
-    private Integer score;
+    private long score;
     @Column(name = "comment" , nullable = false ,length = 250)
     private String comment;
     @Column(name = "time_stamp" , nullable = false)

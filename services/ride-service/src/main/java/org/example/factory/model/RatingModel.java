@@ -6,7 +6,6 @@ import lombok.Data;
 public class RatingModel {
     private long id;
     private long driverId;
-    private long userId;
     private long score;
     private String comment;
     private String timeStamp;

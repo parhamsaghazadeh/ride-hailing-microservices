@@ -1,6 +1,7 @@
 package org.example.factory.service;
 
 import org.example.factory.entity.Ride;
+import org.example.factory.repository.RatingRepository;
 import org.example.factory.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
