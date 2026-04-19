@@ -23,7 +23,7 @@ public class Person {
     private Gender genderId;
     @ManyToOne
     @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_person_role"))
-    private Role roleId;
+    private Role role;
     @Column(name = "number", length = 50, nullable = false)
     private String number;
     @Embedded
