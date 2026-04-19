@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,6 +23,17 @@ public class PersonController {
     private PersonService personService;
     @Autowired
     private Converter converter;
+
+    @GetMapping("/driverId")
+    public ResponseEntity<Long> getDriverId() {
+        Long id = personService.getDriverId();
+        if ( id != null ) {
+            return ResponseEntity.ok(id);
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @GetMapping
     public ResponseEntity<List<PersonModel>> retrievePerson() {
@@ -81,7 +94,7 @@ public class PersonController {
         try {
             personService.deletePerson(id);
             return ResponseEntity.ok().build();
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
