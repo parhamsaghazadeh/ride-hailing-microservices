@@ -4,7 +4,7 @@ public class Enum {
     // rating class
     public enum RatingLevel{
         BAD,
-        GOD,
+        GOOD,
         VERY_GOOD,
         EXCELLENT
     }
