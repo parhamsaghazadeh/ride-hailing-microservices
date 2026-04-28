@@ -48,6 +48,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>3.0.11</version> <!-- این قسمت رو تغییر بدید -->
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>4.1.0</version>
@@ -68,6 +74,18 @@
         </dependency>
 
     </dependencies>
+    <repositories>
+        <repository>
+            <id>megan</id>
+            <url>https://hub.megan.ir/maven</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
