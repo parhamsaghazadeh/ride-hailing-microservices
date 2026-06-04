@@ -24,17 +24,6 @@ public class PersonController {
     @Autowired
     private Converter converter;
 
-    @GetMapping("/driverId")
-    public ResponseEntity<Long> getDriverId() {
-        Long id = personService.getDriverId();
-        if ( id != null ) {
-            return ResponseEntity.ok(id);
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @GetMapping
     public ResponseEntity<List<PersonModel>> retrievePerson() {
         try {

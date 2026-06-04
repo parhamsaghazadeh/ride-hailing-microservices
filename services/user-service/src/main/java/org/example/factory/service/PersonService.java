@@ -23,7 +23,6 @@ public class PersonService {
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-        PersonService();
     }
 
     public Person createPerson(Person person) {
@@ -46,24 +45,6 @@ public class PersonService {
         return personRepository.findById(id).orElse(null);
     }
 
-
-    public void PersonService(){
-        roleTitleToIdMap=new HashMap<>();
-        roleTitleToIdMap.put("Driver",1L);
-        roleTitleToIdMap.put("Traveller",2L);
-    }
-
-    public List<Person> getPersonsByRole(String role) {
-        Long roleId = roleTitleToIdMap.get(role);
-
-        if (roleId == null) {
-            return Collections.emptyList();
-        }
-
-        Role temoRole = new Role();
-        temoRole.setId(roleId);
-        return personRepository.findByRole(temoRole);
-    }
 
 
 }
