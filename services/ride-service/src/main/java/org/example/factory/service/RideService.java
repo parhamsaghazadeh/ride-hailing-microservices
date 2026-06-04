@@ -1,5 +1,6 @@
 package org.example.factory.service;
 
+import org.example.factory.client.UserClient;
 import org.example.factory.entity.Ride;
 import org.example.factory.repository.RatingRepository;
 import org.example.factory.repository.RideRepository;
@@ -12,9 +13,13 @@ import java.util.List;
 public class RideService {
 
     private RideRepository rideRepository;
-    @Autowired
-    public RideService(RideRepository rideRepository) {
+
+    private final UserClient userClient;
+
+
+    public RideService(RideRepository rideRepository ,UserClient userClient) {
         this.rideRepository = rideRepository;
+        this.userClient = userClient;
     }
 
     public List<Ride> getAllTravels() {
@@ -29,7 +34,24 @@ public class RideService {
         rideRepository.delete(ride);
     }
 
-    public Ride getTravelById(Long id){
+    public Ride getTravelById(Long id) {
         return rideRepository.getReferenceById(id);
     }
-}
+
+        public Ride createRide(Ride ride) {
+
+            boolean isDriver =
+                    userClient.isDriver(
+                            ride.getDriverId()
+                    );
+
+            if (!isDriver) {
+
+                throw new RuntimeException(
+                        "Driver not valid"
+                );
+            }
+
+            return rideRepository.save(ride);
+        }
+    }
