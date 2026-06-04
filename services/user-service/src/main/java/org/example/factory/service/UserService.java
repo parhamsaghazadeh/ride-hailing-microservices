@@ -12,13 +12,18 @@ public class UserService {
         this.personRepository = personRepository;
     }
 
-    public boolean isDriver(Long id) {
-        Person person = personRepository.findById(id).orElse(null);
+public boolean isDriver(Long id) {
 
-        if (person == null) {
-            return false;
-        }
+    Person person = personRepository
+            .findById(id)
+            .orElse(null);
 
-        return person.getRole().getTitle().equalsIgnoreCase("Driver");
+    if (person == null) {
+        return false;
     }
+
+    return person.getRole()
+            .getTitle()
+            .equalsIgnoreCase("Driver");
+}
 }
