@@ -5,7 +5,7 @@ import org.example.factory.entity.Ride;
 import org.example.factory.service.RideService;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/rating")
+@RequestMapping("api/ride")
 @RestController
 @Slf4j
 public class RideController {
