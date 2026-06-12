@@ -5,7 +5,9 @@ import org.example.factory.entity.Ride;
 import org.example.factory.repository.RatingRepository;
 import org.example.factory.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class RideService {
     private final UserClient userClient;
 
 
-    public RideService(RideRepository rideRepository ,UserClient userClient) {
+    public RideService(RideRepository rideRepository, UserClient userClient) {
         this.rideRepository = rideRepository;
         this.userClient = userClient;
     }
@@ -38,20 +40,29 @@ public class RideService {
         return rideRepository.getReferenceById(id);
     }
 
-        public Ride createRide(Ride ride) {
+    public Ride createRide(Ride ride) {
 
-            boolean isDriver =
-                    userClient.isDriver(
-                            ride.getDriverId()
-                    );
-
-            if (!isDriver) {
-
-                throw new RuntimeException(
-                        "Driver not valid"
+        boolean isDriver =
+                userClient.isDriver(
+                        ride.getDriverId()
                 );
-            }
 
-            return rideRepository.save(ride);
+        boolean isTraveler = userClient.isTraveler(
+                ride.getPassengerId()
+        );
+
+        if (!isDriver && !isTraveler) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Driver and Traveler not found");
         }
+
+        if (!isDriver) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Driver not found");
+        }
+
+        if (!isTraveler) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Traveler not found");
+        }
+
+        return rideRepository.save(ride);
     }
+}
