@@ -21,4 +21,10 @@ public class UserClient {
                 Boolean.class
         );
     }
+
+    public boolean isTraveler(Long travelerId) {
+        String url = "http://localhost:8080/user/users/" + travelerId + "/is-traveler";
+
+        return restTemplate.getForObject(url, Boolean.class);
+    }
 }
