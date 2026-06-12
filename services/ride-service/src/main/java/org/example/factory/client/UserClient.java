@@ -13,7 +13,7 @@ public class UserClient {
 
     public boolean isDriver(Long driverId) {
         String url =
-                "http://localhost:8080/users/"
+                "http://localhost:8080/user/users/"
                         + driverId
                         + "/is-driver";
         return restTemplate.getForObject(
