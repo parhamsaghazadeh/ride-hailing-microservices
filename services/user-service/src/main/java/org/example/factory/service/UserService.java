@@ -26,4 +26,18 @@ public boolean isDriver(Long id) {
             .getTitle()
             .equalsIgnoreCase("Driver");
 }
+
+public boolean isTraveler(Long id) {
+        Person person = personRepository
+            .findById(id)
+            .orElse(null);
+
+        if (person == null) {
+            return false;
+        }
+
+        return person.getRole()
+                .getTitle()
+                .equalsIgnoreCase("Traveler");
+}
 }

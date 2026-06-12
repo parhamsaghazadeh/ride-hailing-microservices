@@ -23,4 +23,9 @@ public class UserController {
     public boolean isDriver(@PathVariable long id) {
         return userService.isDriver(id);
     }
+
+    @GetMapping("/{id}/is-traveler")
+    public boolean isTraveler(@PathVariable long id) {
+        return userService.isTraveler(id);
+    }
 }
