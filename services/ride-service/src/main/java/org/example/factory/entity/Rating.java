@@ -17,6 +17,11 @@ public class Rating {
     private Long id;
     @Column(name = "driver_id",nullable = false)
     private Long driverId;
+    @ManyToOne
+    @JoinColumn(name = "ride_id" , foreignKey = @ForeignKey(name = "FK-ride-rating"))
+    private Ride rideId;
+    @Column(name = "passenger_id",nullable = false)
+    private Long passengerId;
     //امتیاز 1-10
     @Column(name = "score",nullable = false)
     private long score;
