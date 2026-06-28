@@ -23,32 +23,75 @@ public class VehicleController {
     @Autowired
     private Converter converter;
 
+
+    //microservice
     @PostMapping
-    public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<VehicleModel> addVehicle(@RequestBody Vehicle vehicle) {
         try {
             vehicleService.createVehicle(vehicle);
-            return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
-        }
-        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(vehicle);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>>  getAllVehicles() {
+    public ResponseEntity<List<VehicleModel>> getAllVehicles() {
         try {
             List<Vehicle> vehicles = vehicleService.findAll();
             List<VehicleModel> vehicleModels = vehicles.stream()
                     .map(converter::convertVehicleModelToEntity)
                     .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.OK).body(vehicles);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+
+    @GetMapping
+    public ResponseEntity<VehicleModel> getVehicleById(@RequestParam long id) {
+        try {
+            Vehicle vehicle = vehicleService.findById(id);
+            VehicleModel vehicleModel = converter.convertVehicleModelToEntity(vehicle);
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-            }
+    }
+
+    @PutMapping
+    public ResponseEntity<VehicleModel> updateVehicle(@RequestBody Vehicle vehicle) {
+        try {
+            Vehicle vehicleUpdate = vehicleService.update(vehicle);
+            VehicleModel vehicleModel = converter.convertVehicleModelToEntity(vehicleUpdate);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteVehicleById(@RequestParam long id) {
+        try {
+            vehicleService.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
 
 }
