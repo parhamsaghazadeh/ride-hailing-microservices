@@ -32,8 +32,8 @@ public class RideService {
         return rideRepository.save(ride);
     }
 
-    public void deleteTravel(Ride ride) {
-        rideRepository.delete(ride);
+    public void deleteTravel(Long id) {
+        rideRepository.deleteById(id);
     }
 
     public Ride getTravelById(Long id) {
