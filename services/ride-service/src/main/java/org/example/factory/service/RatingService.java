@@ -21,12 +21,13 @@ public class RatingService {
         this.userClient = userClient;
     }
 
-    public Rating saveRating(Rating rating) {
-        return ratingRepository.save(rating);
-    }
-
     public Rating updateRating(Rating rating) {
-        return ratingRepository.save(rating);
+        Rating oldRating = ratingRepository.findById(rating.getId()).orElse(null);
+
+        oldRating.setRatingLevel(rating.getRatingLevel());
+        oldRating.setScore(rating.getScore());
+        oldRating.setComment(rating.getComment());
+        return ratingRepository.save(oldRating);
     }
 
     public void deleteRating(Long id) {
