@@ -55,6 +55,35 @@ public class RatingController {
         try {
             Rating rating = ratingService.findRatingById(id);
             return ResponseEntity.ok().body(converter.convertRatingModelToEntity(rating));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+
+    @PutMapping
+    public ResponseEntity<RatingModel> updateRating(@RequestBody Rating rating) {
+        try {
+            Rating ratings = ratingService.updateRating(rating);
+            return ResponseEntity.ok().body(converter.convertRatingModelToEntity(ratings));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteRatingById(@RequestParam long id) {
+        try {
+            ratingService.deleteRating(id);
+            return ResponseEntity.ok().body("Delete rating with id " + id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
