@@ -20,6 +20,7 @@ public class RatingController {
     @Autowired
     private RatingService ratingService;
 
+    @Autowired
     private Converter converter;
 
     //microservice
@@ -42,10 +43,11 @@ public class RatingController {
             List<RatingModel> ratingModels = ratings.stream()
                     .map(converter::convertRatingModelToEntity)
                     .collect(Collectors.toList());
-            return ResponseEntity.ok().body(ratingModels);
+            return ResponseEntity.ok(ratingModels);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            log.error(e.getMessage());
+            e.printStackTrace();
+            log.error("Error while getting ratings", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
