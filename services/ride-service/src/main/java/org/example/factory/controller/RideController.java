@@ -54,24 +54,12 @@ public class RideController {
         }
     }
 
-    @GetMapping
+    @GetMapping(value = "/id")
     public ResponseEntity<RideModel> getId(@RequestParam Long id) {
         try {
             Ride ride = rideService.getTravelById(id);
             RideModel rideModel = converter.convertRideModelToEntity(ride);
             return ResponseEntity.ok().body(rideModel);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            System.err.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-
-    @PostMapping
-    public ResponseEntity<RideModel> CreateRide(@RequestBody Ride ride) {
-        try {
-            Ride rides = rideService.createRide(ride);
-            return ResponseEntity.ok().body(converter.convertRideModelToEntity(rides));
         } catch (Exception e) {
             log.error(e.getMessage());
             System.err.println(e.getMessage());

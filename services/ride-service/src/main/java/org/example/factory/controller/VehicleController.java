@@ -52,7 +52,7 @@ public class VehicleController {
     }
 
 
-    @GetMapping
+    @GetMapping(value = "/id")
     public ResponseEntity<VehicleModel> getVehicleById(@RequestParam long id) {
         try {
             Vehicle vehicle = vehicleService.findById(id);
