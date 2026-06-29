@@ -57,7 +57,7 @@ public class VehicleController {
         try {
             Vehicle vehicle = vehicleService.findById(id);
             VehicleModel vehicleModel = converter.convertVehicleModelToEntity(vehicle);
-            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.status(HttpStatus.OK).body(vehicleModel);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
