@@ -29,8 +29,8 @@ public class RatingService {
         return ratingRepository.save(rating);
     }
 
-    public void deleteRating(Rating rating) {
-        ratingRepository.delete(rating);
+    public void deleteRating(Long id) {
+        ratingRepository.deleteById(id);
     }
 
     public List<Rating> getAllRatings() {
