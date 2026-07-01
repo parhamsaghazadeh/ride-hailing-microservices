@@ -24,7 +24,7 @@ public class Payment {
     @Column(name = "payment_status" , nullable = false)
     private Enum.paymentStatus paymentStatus;
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status" , nullable = false)
+    @Column(name = "payment_method" , nullable = false)
     private Enum.paymentMethod paymentMethod;
     @Column(name = "payment_time" , nullable = false)
     private LocalDateTime paymentTime;
