@@ -65,4 +65,10 @@ public class RideService {
 
         return rideRepository.save(ride);
     }
+
+    public Ride findRideById(Long id) {
+        return rideRepository.findById(id).orElseGet(()->{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ride not found");
+        });
+    }
 }
