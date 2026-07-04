@@ -3,6 +3,7 @@ package org.example.factory.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.factory.entity.Ride;
 import org.example.factory.model.Converter;
+import org.example.factory.model.RideDTO;
 import org.example.factory.model.RideModel;
 import org.example.factory.service.RideService;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,20 @@ public class RideController {
             rideService.deleteTravel(id);
             return ResponseEntity.ok().body("ride has been deleted");
         } catch (Exception e) {
+            log.error(e.getMessage());
+            System.err.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    //relation to payment service
+    @GetMapping("/{id}")
+    public ResponseEntity<RideDTO> getRide(@PathVariable Long id) {
+        try {
+            Ride ride = rideService.findRideById(id);
+            return ResponseEntity.ok().body(converter.convertRideToDto(ride));
+        }
+        catch (Exception e) {
             log.error(e.getMessage());
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
