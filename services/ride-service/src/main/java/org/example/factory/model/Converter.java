@@ -51,6 +51,19 @@ public class Converter {
         return ratingModel;
     }
 
+    public RideDTO convertRideToDto(Ride ride) {
+
+        RideDTO dto = new RideDTO();
+
+        dto.setId(ride.getId());
+        dto.setDriverId(ride.getDriverId());
+        dto.setPassengerId(ride.getPassengerId());
+        dto.setRidePrice(ride.getRidePrice());      // بدون format
+        dto.setRideTime(ride.getRideTime());        // بدون format
+
+        return dto;
+    }
+
 
 
 }
