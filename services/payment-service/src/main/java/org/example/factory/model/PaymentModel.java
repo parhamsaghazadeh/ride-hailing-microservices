@@ -8,7 +8,7 @@ public class PaymentModel {
     private long passengerId;
     private long driverId;
     private long riderId;
-    private String amount;
+    private String ridePrise;
     private String paymentStatus;
     private String paymentMethod;
     private String paymentTime;
