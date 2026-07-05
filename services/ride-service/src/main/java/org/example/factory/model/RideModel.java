@@ -3,6 +3,7 @@ package org.example.factory.model;
 import lombok.Data;
 
 @Data
+//Display in output
 public class RideModel {
     private long id;
     private String startingPoint;
