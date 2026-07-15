@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+  #user data base
+  mysql-user:
+    image: mysql:8.4
+    container_name: mysql-user
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: parham86sa
+      MYSQL_DATABASE: userdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - parham-data-user:/var/lib/mysql
+
+  #user service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: docker-compose.yaml
+
+    container_name: user-service
+
+    restart: always
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - mysql-user
+
+  #ride database
+  mysql-ride:
+    image: mysql:8.4
+    container_name: mysql-ride
+
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: parham86sa
+      MYSQL_DATABASE: ridedb
+      MYSQL_USER: ride
+      MYSQL_PASSWORD: 123456
+
+    ports:
+      - "3308:3306"
+
+    volumes:
+      - parham-data-ride:/var/lib/mysql
+  #ride service
+  ride-service:
+    build:
+      context: ./ride-service
+      dockerfile: docker-compose.yaml
+
+    container_name: ride-service
+
+    restart: always
+
+    ports:
+      - "8081:8081"
+
+    depends_on:
+      - mysql-ride
+      - user-service
+  #payment database
+  mysql-payment:
+    image: mysql:8.4
+    container_name: mysql-payment
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: parham86sa
+      MYSQL_DATABASE: paymentdb
+      MYSQL_USER: payment
+      MYSQL_PASSWORD: 123456
+
+    ports:
+     - "3309:3306"
+    volumes:
+      - parham-data-payment:/var/lib/mysql
+
+  #payment database
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: docker-compose.yaml
+
+    container_name: payment-service
+
+    restart: always
+
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql-payment
+      - ride-service
+      - user-service
+
+volumes:
+
+  parham-data-user:
+
+  parham-data-ride:
+
+  parham-data-payment:
