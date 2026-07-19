@@ -1,4 +1,3 @@
-version: "3.9"
 
 services:
   #user data base
@@ -20,9 +19,8 @@ services:
   #user service
   user-service:
     build:
-      context: ./user-service
-      dockerfile: docker-compose.yaml
-
+      context: ./services/user-service
+      dockerfile: Dockerfile.yaml
     container_name: user-service
 
     restart: always
@@ -54,9 +52,8 @@ services:
   #ride service
   ride-service:
     build:
-      context: ./ride-service
-      dockerfile: docker-compose.yaml
-
+      context: ./services/ride-service
+      dockerfile: Dockerfile.yaml
     container_name: ride-service
 
     restart: always
@@ -83,12 +80,11 @@ services:
     volumes:
       - parham-data-payment:/var/lib/mysql
 
-  #payment database
+  #payment service
   payment-service:
     build:
-      context: ./payment-service
-      dockerfile: docker-compose.yaml
-
+      context: ./services/payment-service
+      dockerfile: Dockerfile.yaml
     container_name: payment-service
 
     restart: always
