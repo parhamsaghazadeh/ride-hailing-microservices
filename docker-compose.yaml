@@ -1,20 +1,23 @@
-
 services:
-  #user data base
-  mysql-user:
+  #database
+  mysql:
     image: mysql:8.4
-    container_name: mysql-user
+
+    container_name: mysql
+
     restart: always
+
     environment:
       MYSQL_ROOT_PASSWORD: parham86sa
-      MYSQL_DATABASE: userdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: 123456
-    ports:
-      - "3307:3306"
 
+    ports:
+      - "3306:3306"
     volumes:
-      - parham-data-user:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    networks:
+      default:
 
   #user service
   user-service:
@@ -29,26 +32,7 @@ services:
       - "8080:8080"
 
     depends_on:
-      - mysql-user
-
-  #ride database
-  mysql-ride:
-    image: mysql:8.4
-    container_name: mysql-ride
-
-    restart: always
-
-    environment:
-      MYSQL_ROOT_PASSWORD: parham86sa
-      MYSQL_DATABASE: ridedb
-      MYSQL_USER: ride
-      MYSQL_PASSWORD: 123456
-
-    ports:
-      - "3308:3306"
-
-    volumes:
-      - parham-data-ride:/var/lib/mysql
+      - mysql
   #ride service
   ride-service:
     build:
@@ -62,24 +46,8 @@ services:
       - "8081:8081"
 
     depends_on:
-      - mysql-ride
+      - mysql
       - user-service
-  #payment database
-  mysql-payment:
-    image: mysql:8.4
-    container_name: mysql-payment
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: parham86sa
-      MYSQL_DATABASE: paymentdb
-      MYSQL_USER: payment
-      MYSQL_PASSWORD: 123456
-
-    ports:
-     - "3309:3306"
-    volumes:
-      - parham-data-payment:/var/lib/mysql
-
   #payment service
   payment-service:
     build:
@@ -92,14 +60,9 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - mysql-payment
+      - mysql
       - ride-service
       - user-service
 
 volumes:
-
-  parham-data-user:
-
-  parham-data-ride:
-
-  parham-data-payment:
+  mysql-data:
