@@ -15,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 })
 @ComponentScan({"org.example.factory.service" , "org.example.factory.controller" , "org.example.factory.Model" , "org.example.factory.repository"})
 @EnableJpaRepositories("org.example.factory.repository")
-@EnableFeignClients("org.example.factory.client")
 @Configuration
 public class SBExampleApplicationUser {
     public static void main(String[] args) {
