@@ -27,7 +27,7 @@ public class PaymentController {
     private Converter converter;
 
     @PostMapping
-    public ResponseEntity<PaymentModel> createRide(@RequestBody Payment payment) {
+    public ResponseEntity<PaymentModel> createPayment(@RequestBody Payment payment) {
         try {
             Payment payments = paymentService.createPayment(payment);
             PaymentModel paymentModel = converter.convertPaymentToPaymentModel(payments);
