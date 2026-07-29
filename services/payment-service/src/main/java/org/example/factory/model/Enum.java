@@ -18,4 +18,16 @@ public class Enum {
 
         WALLET
     }
+
+    public enum transactionType {
+        DEPOSIT,
+        WITHDRAW,
+        TRANSFER
+    }
+
+    public enum transactionStatus {
+        PENDING,
+        SUCCESS,
+        FAILED,
+    }
 }
