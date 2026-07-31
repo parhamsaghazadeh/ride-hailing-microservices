@@ -3,6 +3,7 @@ package org.example.factory.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.factory.Model.Converter;
 import org.example.factory.Model.PersonModel;
+import org.example.factory.Model.PersonWalletDTO;
 import org.example.factory.Model.PersonWalletModel;
 import org.example.factory.entity.PersonWallet;
 import org.example.factory.service.PersonWalletService;
@@ -22,6 +23,19 @@ public class PersonWalletController {
     private PersonWalletService personWalletService;
     @Autowired
     private Converter converter;
+
+
+    @GetMapping("/api")
+    public ResponseEntity<List<PersonWalletDTO>> findById(@PathVariable Long id) {
+        try {
+            PersonWallet personWallet = personWalletService.findWalletById(id);
+            converter.toPersonWalletModel(personWallet);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     @GetMapping
     public ResponseEntity<List<PersonWalletModel>> getWallet() {
