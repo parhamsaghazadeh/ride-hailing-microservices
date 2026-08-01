@@ -25,12 +25,12 @@ public class PersonWalletController {
     private Converter converter;
 
 
-    @GetMapping("/api")
-    public ResponseEntity<List<PersonWalletDTO>> findById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonWalletDTO> findById(@PathVariable Long id) {
         try {
             PersonWallet personWallet = personWalletService.findWalletById(id);
-            converter.toPersonWalletModel(personWallet);
-            return ResponseEntity.ok().build();
+            PersonWalletDTO walletDTO = converter.toPersonWalletDTO(personWallet);
+            return ResponseEntity.ok(walletDTO);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
