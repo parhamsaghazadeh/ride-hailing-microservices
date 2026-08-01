@@ -52,4 +52,15 @@ public class Converter {
         personLocationModel.setIsDefault(personLocationModel.getIsDefault());
         return personLocationModel;
     }
+
+    public PersonWalletDTO  toPersonWalletDTO(PersonWallet personWallet) {
+        PersonWalletDTO personWalletDTO = new PersonWalletDTO();
+        personWalletDTO.setId(personWallet.getId());
+        personWalletDTO.setPersonId(personWallet.getPersonId().getId());
+        personWalletDTO.setBalance(personWallet.getBalance());
+        personWalletDTO.setCurrency(personWallet.getCurrency());
+        personWalletDTO.setCreatedAt(personWallet.getCreatedAt());
+        personWalletDTO.setUpdatedAt(personWallet.getUpdateAt());
+        return personWalletDTO;
+    }
 }
