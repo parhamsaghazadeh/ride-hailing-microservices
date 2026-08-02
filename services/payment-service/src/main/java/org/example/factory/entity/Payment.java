@@ -30,4 +30,6 @@ public class Payment {
     private Enum.paymentMethod paymentMethod;
     @Column(name = "payment_time" , nullable = false)
     private LocalDateTime paymentTime;
+    @OneToOne(mappedBy = "payment",cascade = CascadeType.ALL)
+    private Transaction transaction;
 }
