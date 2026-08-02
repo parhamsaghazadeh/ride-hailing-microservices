@@ -14,8 +14,9 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "payment-id" , nullable = false)
-    private Long paymentId;
+    @OneToOne
+    @JoinColumn(name = "payment-id" , nullable = false,foreignKey = @ForeignKey(name = "FK-payment-transaction"))
+    private Payment payment;
     @Column(name = "wallet-id" , nullable = false)
     private Long walletId;
     @Column(name = "amount" , nullable = false)
