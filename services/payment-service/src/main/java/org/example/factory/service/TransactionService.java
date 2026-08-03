@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TransactionService {
@@ -50,6 +51,24 @@ public class TransactionService {
         transaction.setAmount(payment.getRidePrice());
         transaction.setTransactionTime(LocalDateTime.now());
 
+        return transactionRepository.save(transaction);
+    }
+
+    public List<Transaction> allTransactions() {
+        return transactionRepository.findAll();
+    }
+
+    public Transaction getTransactionById(long id) {
+        return transactionRepository.findById(id).orElseGet(()->{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"transaction not found");
+        });
+    }
+
+    public void  deleteTransactionById(long id) {
+        transactionRepository.deleteById(id);
+    }
+
+    public Transaction updateTransaction(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
 
