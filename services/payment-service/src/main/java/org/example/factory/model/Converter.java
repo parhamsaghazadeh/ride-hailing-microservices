@@ -1,6 +1,7 @@
 package org.example.factory.model;
 
 import org.example.factory.entity.Payment;
+import org.example.factory.entity.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
@@ -23,5 +24,18 @@ public class Converter {
         paymentModel.setPaymentMethod(payment.getPaymentMethod().name());
         paymentModel.setPaymentTime(formatter.format(payment.getPaymentTime()));
         return paymentModel;
+    }
+
+    public TransactionModel convertTransactionToTransactionModel(Transaction transaction) {
+        TransactionModel transactionModel = new TransactionModel();
+        transactionModel.setId(transaction.getId());
+        transactionModel.setPaymentId(transaction.getPayment().getId());
+        transactionModel.setWalletId(transaction.getWalletId());
+        transactionModel.setTransactionStatus(transaction.getTransactionStatus().name());
+        transactionModel.setTransactionTime(formatter.format(transaction.getTransactionTime()));
+        transactionModel.setTransactionType(transaction.getTransactionType().name());
+        transactionModel.setDescription(transaction.getDescription());
+        transactionModel.setAmount(decimalFormat.format(transaction.getAmount()));
+        return transactionModel;
     }
 }
