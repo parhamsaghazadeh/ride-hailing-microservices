@@ -55,7 +55,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping
+    @GetMapping("id")
     public ResponseEntity<PaymentModel> getPaymentById(@RequestParam Long id) {
         try {
             Payment payments = paymentService.getPaymentById(id);
