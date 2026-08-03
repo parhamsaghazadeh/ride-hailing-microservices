@@ -12,10 +12,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/payment")
@@ -39,4 +39,60 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<PaymentModel>> getAllPayments() {
+        try {
+            List<Payment> payments = paymentService.getPaymentList();
+            List<PaymentModel> paymentModels = payments.stream().map(converter::convertPaymentToPaymentModel)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(paymentModels);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<PaymentModel> getPaymentById(@RequestParam Long id) {
+        try {
+            Payment payments = paymentService.getPaymentById(id);
+            PaymentModel paymentModel = converter.convertPaymentToPaymentModel(payments);
+            return ResponseEntity.ok(paymentModel);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @PutMapping
+    public ResponseEntity<PaymentModel> updatePayment(@RequestBody Payment payment) {
+        try {
+            Payment payments = paymentService.updatePayment(payment);
+            PaymentModel paymentModel = converter.convertPaymentToPaymentModel(payments);
+            return ResponseEntity.ok(paymentModel);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping
+    public void deletePayment(@RequestParam Long id) {
+        try {
+            paymentService.deletePaymentById(id);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            System.out.println(e);
+        }
+    }
+
 }

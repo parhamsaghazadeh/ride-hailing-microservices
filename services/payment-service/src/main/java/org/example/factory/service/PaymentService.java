@@ -11,21 +11,23 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PaymentService {
     private final PaymentRepository paymentRepository;
 
-    private  final RideClient rideClient;
+    private final RideClient rideClient;
+
     public PaymentService(PaymentRepository paymentRepository, RideClient rideClient) {
         this.paymentRepository = paymentRepository;
         this.rideClient = rideClient;
     }
 
-    public Payment createPayment(Payment payment){
-        RideModel  rideModel = rideClient.getRideById(payment.getRideId());
+    public Payment createPayment(Payment payment) {
+        RideModel rideModel = rideClient.getRideById(payment.getRideId());
 
-        if (rideModel == null){
+        if (rideModel == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ride not found");
         }
         //دیتا هایی که از ride-service میاد
@@ -40,4 +42,20 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
+
+    public Payment getPaymentById(Long paymentId) {
+        return paymentRepository.findById(paymentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Payment not found"));
+    }
+
+    public List<Payment> getPaymentList() {
+        return paymentRepository.findAll();
+    }
+
+    public void deletePaymentById(Long paymentId) {
+         paymentRepository.deleteById(paymentId);
+    }
+
+    public Payment updatePayment(Payment payment) {
+        return paymentRepository.save(payment);
+    }
 }
