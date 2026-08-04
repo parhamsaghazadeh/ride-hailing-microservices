@@ -10,12 +10,14 @@ import org.example.factory.repository.TransactionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class TransactionService {
     private TransactionRepository transactionRepository;
 
@@ -33,7 +35,7 @@ public class TransactionService {
     public Transaction createTransaction(Transaction transaction) {
 
         //اعتبار تراکنش
-        if (transaction.getPayment() == null){
+        if (transaction.getPayment() == null || transaction.getPayment().getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment is null");
         }
 
