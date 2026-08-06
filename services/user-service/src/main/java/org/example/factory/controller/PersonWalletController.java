@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +66,7 @@ public class PersonWalletController {
         }
     }
 
-    @PostMapping
+    @PostMapping(value = "/create")
     public ResponseEntity<PersonWalletModel> createWallet(@RequestBody PersonWallet personWallet) {
         try {
 
@@ -73,6 +74,32 @@ public class PersonWalletController {
             PersonWalletModel personWalletModel = converter.toPersonWalletModel(addPersonWallet);
             return ResponseEntity.ok(personWalletModel);
         } catch (Exception e) {
+            log.error(e.getMessage());
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping(value = "/{id}/deposit")
+    public ResponseEntity<PersonWalletModel> deposit(@PathVariable Long id, @RequestParam BigDecimal amount) {
+        try {
+            PersonWallet personWallet = personWalletService.deposit(id, amount);
+            return ResponseEntity.ok(converter.toPersonWalletModel(personWallet));
+        }
+        catch (Exception e) {
+            log.error(e.getMessage());
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping(value = "/{id}/withdraw")
+    public ResponseEntity<PersonWalletModel> withdraw(@PathVariable Long id, @RequestParam BigDecimal amount) {
+        try {
+            PersonWallet personWallet = personWalletService.withdraw(id, amount);
+            return ResponseEntity.ok(converter.toPersonWalletModel(personWallet));
+        }
+        catch (Exception e) {
             log.error(e.getMessage());
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
